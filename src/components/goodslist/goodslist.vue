@@ -54,7 +54,7 @@
                             <li v-for="item in goods.toplist" :key="item.id">
                                 <div class="img-box">
                                     <label>1</label>
-                                    <img src="item.img_url">
+                                    <img :src="item.img_url">
                                 </div>
                                 <div class="txt-box">
                                     <a href="/goods/show-98.html">{{item.title}}</a>
@@ -80,7 +80,7 @@
                 <div class="wrap-box">
                     <ul class="img-list">
                         <li v-for="subitem1 in item.datas" :key="subitem1.artID">
-                            <a href="#/site/goodsinfo/92" class="">
+                            <router-link :to="'/goodsinfo/'+subitem1.artID" class="">
                                 <div class="img-box">
                                     <img v-lazy="subitem1.img_url">
                                 </div>
@@ -95,7 +95,7 @@
                                         </span>
                                     </p>
                                 </div>
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -110,7 +110,7 @@
   }
 </style>
 <script>
-import axios from "axios";
+// import axios from "axios";
 
 export default {
   data() {
@@ -126,9 +126,9 @@ export default {
   methods: {
     // 获取购物商城头部所需的数据
     getGoodsData() {
-      const url = "http://47.106.148.205:8899/site/goods/gettopdata/goods";
-      axios
-        .get(url)
+      const url = "goods/gettopdata/goods";
+
+        this.$axios.get(url)
         .then(Response => {
         //   console.log(Response);
           this.goods = Response.data.message;
@@ -139,11 +139,11 @@ export default {
     },
     // 获取商品列表
     getGoodsList(){
-       const url = 'http://47.106.148.205:8899/site/goods/getgoodsgroup'
-       axios.get(url).then(Response=>{
-           console.log(Response)
+       const url = 'goods/getgoodsgroup'
+       this.$axios.get(url).then(Response=>{
+        //    console.log(Response)
            this.goodsgroup = Response.data.message
-           console.log(this.goodsgroup)
+        //    console.log(this.goodsgroup)
        }).catch(err=>{
            console.log(err)
        })

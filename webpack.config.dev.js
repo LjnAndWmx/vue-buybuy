@@ -2,6 +2,9 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+const webpack = require('webpack')
+const path = require('path')
+
 module.exports = {
     entry: './src/main.js',
     module: {
@@ -14,7 +17,7 @@ module.exports = {
                 use: ['style-loader','css-loader']
             },
             {
-                test: /\.(ttf|woff|eot|svg|jpg)$/,
+                test: /\.(ttf|woff|eot|svg|jpg|img|png)$/,
                 use: [{
                     loader: 'url-loader'
                 }]
@@ -22,7 +25,10 @@ module.exports = {
         ]
     },
      resolve: {
-    extensions: ['.vue','.js', '.css','*',]
+        alias: {
+            '@': path.join(__dirname, "src"),
+          },
+         extensions: ['.vue','.js', '.css','*',]
   },
   devServer:{
     overlay: true,
@@ -33,6 +39,10 @@ module.exports = {
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
             template: './template.html'
+        }),
+        new webpack.ProvidePlugin({
+            $: "jquery",    //webpack会检测模块代码有没有使用jq,有就会自动帮你import
+            jQuery: "jquery"
         })
     ]
 }

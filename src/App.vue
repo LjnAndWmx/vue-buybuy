@@ -1,5 +1,4 @@
 <template>
-
    <div>
         <!-- 1.头部 -->
         <div class="header">
@@ -25,8 +24,8 @@
                             <strong>|</strong>
                         </span>
                         <router-link to="/shopcart" class="">
-                            <i class="iconfont icon-cart"></i>购物车(
-                            <span id="shoppingCartCount">
+                            <i id="shoppingCartCount" class="iconfont icon-cart"></i>购物车(
+                            <span>
                                 <span>4</span>
                             </span>)</router-link>
                     </div>
@@ -122,10 +121,11 @@
 </template>
 <script>
 // 按照es6导出
-import $ from "jquery";
-import Vue from "vue";
+// import $ from "jquery"
+import Vue from "vue"
 
 export default {
+    // jQuery动画效果
   mounted() {
     $("#menu2 li a").wrapInner('<span class="out"></span>');
     $("#menu2 li a").each(function() {
