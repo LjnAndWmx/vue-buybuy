@@ -26,12 +26,12 @@
                         <router-link to="/shopcart" class="">
                             <i id="shoppingCartCount" class="iconfont icon-cart"></i>购物车(
                             <span>
-                                <span>4</span>
+                                <!-- <span>{{this.$store.state.count}}</span> -->
+                                <span>{{$store.getters.getbuyCount}}</span>
                             </span>)</router-link>
                     </div>
                 </div>
             </div>
-
             <!-- 2.0 导航条 -->
             <div class="head-nav">
                 <div class="section">
@@ -83,7 +83,7 @@
            
     <!-- 2.中间路由 -->
     <router-view>
-
+        
     </router-view>
      <!-- 3.底部 -->
      <div class="footer">
@@ -122,10 +122,10 @@
 <script>
 // 按照es6导出
 // import $ from "jquery"
-import Vue from "vue"
+import Vue from "vue";
 
 export default {
-    // jQuery动画效果
+  // jQuery动画效果
   mounted() {
     $("#menu2 li a").wrapInner('<span class="out"></span>');
     $("#menu2 li a").each(function() {

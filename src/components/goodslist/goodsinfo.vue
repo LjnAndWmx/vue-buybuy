@@ -89,7 +89,7 @@
                 </div>
                 <div id="goodsTabs" class="goods-tab bg-wrap">
                     <Affix>
-                    <div id="tabHead" class="tab-head" style="position: static; top: 517px; width: 925px;">
+                    <div id="tabHead">
                         <ul>
                             <li>
                                 <a @click="isShowIntroduction=true" href="javascript:;" :class="{ selected: isShowIntroduction }">商品介绍</a>
@@ -181,7 +181,9 @@
      </transition>
     </div>
 </template>
+
 <style scoped>
+
 @import "../../statics/site/js/jqimgzoom/css/magnifier.css";
 .animateDiv{
     position: absolute;
@@ -201,11 +203,11 @@ import "../../statics/site/js/jqimgzoom/js/magnifier";
 
 // 按需引入
 import { Affix } from "iview";
-
+// 导出的是vue对象
 export default {
   data() {
     return {
-      goods: [],
+      goods: {},
       goodsCount: 1,
       isShowIntroduction: true, //商品评论是否显示
       pageIndex: 1, //默认显示第一页
@@ -227,6 +229,7 @@ export default {
     }
   },
   created() {
+    //   发送ajax请求
     //   执行区域
     this.getgoodsInfo();
     this.getCommentListData();
@@ -318,6 +321,13 @@ export default {
     // 点击动画购物车
     addToshopCart(){
         this.isShow=true
+
+        // 提交数据到全局仓库  载荷即参数
+        const goods = {
+            goodsId:this.$route.params.goodsId,
+            count:this.goodsCount
+        }
+        this.$store.commit('addGoods',goods)
     },
      beforeEnter: function (el) {
         el.style.top = this.addToshopCartoffset.top+'px'
